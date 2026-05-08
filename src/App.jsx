@@ -60,25 +60,41 @@ const App = () => {
 
   // Download PDF
   const downloadPDF = async () => {
-    const element = invoiceRef.current;
+   const input = invoiceRef.current;
 
-    const canvas = await html2canvas(element);
+  if (!input) return;
 
-    const data = canvas.toDataURL("image/png");
+  try {
+    const canvas = await html2canvas(input, {
+      scale: 2,
+    });
+
+    const imgData = canvas.toDataURL("image/png");
 
     const pdf = new jsPDF("p", "mm", "a4");
 
-    const imgProperties = pdf.getImageProperties(data);
-
-    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfWidth = 210;
 
     const pdfHeight =
-      (imgProperties.height * pdfWidth) / imgProperties.width;
+      (canvas.height * pdfWidth) / canvas.width;
 
-    pdf.addImage(data, "PNG", 0, 0, pdfWidth, pdfHeight);
+    pdf.addImage(
+      imgData,
+      "PNG",
+      0,
+      0,
+      pdfWidth,
+      pdfHeight
+    );
 
     pdf.save("invoice.pdf");
-  };
+
+  } catch (error) {
+    console.log(error);
+    alert("PDF download failed");
+  }
+};
+    
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">

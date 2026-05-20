@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-import html2pdf from "html2pdf.js";
 
 const App = () => {
   const invoiceRef = useRef();

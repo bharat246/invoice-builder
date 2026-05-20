@@ -59,45 +59,7 @@ const App = () => {
 
   // Download PDF
  const downloadPDF = () => {
-  const element = invoiceRef.current;
-
-  if (!element) {
-    alert("Invoice not found");
-    return;
-  }
-
-  const opt = {
-    margin: 0.5,
-    filename: `Invoice-${Date.now()}.pdf`,
-    image: {
-      type: "jpeg",
-      quality: 1,
-    },
-    html2canvas: {
-      scale: 2,
-      logging: true,
-      dpi: 192,
-      letterRendering: true,
-      useCORS: true,
-    },
-    jsPDF: {
-      unit: "in",
-      format: "a4",
-      orientation: "portrait",
-    },
-  };
-
-  html2pdf()
-    .set(opt)
-    .from(element)
-    .save()
-    .then(() => {
-      alert("PDF Downloaded Successfully");
-    })
-    .catch((err) => {
-      console.log(err);
-      alert("PDF Download Failed");
-    });
+  window.print();
 };
 
   return (

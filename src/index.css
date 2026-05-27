@@ -1,1 +1,15 @@
 @import "tailwindcss";
+
+@media print {
+
+  input,
+  textarea {
+    border: none !important;
+    background: transparent !important;
+  }
+
+  button {
+    display: none !important;
+  }
+
+}
